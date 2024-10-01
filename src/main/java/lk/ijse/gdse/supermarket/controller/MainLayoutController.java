@@ -55,7 +55,7 @@ public class MainLayoutController implements Initializable {
             AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
             content.getChildren().add(load);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load page!");
+            new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
         }
     }
 
