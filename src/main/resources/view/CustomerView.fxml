@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.supermarket.controller.CustomerController">
    <children>
-      <VBox maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="600.0" spacing="20.0">
+      <VBox maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox spacing="5.0">
                <children>
@@ -92,7 +92,7 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="30.0">
                <children>
-                  <Button fx:id="btnGenerateReport" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnGenerateReportOnAction" style="-fx-background-color: #7f8c8d;" text="Generate Report" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #7f8c8d;" text="Generate Report" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
@@ -100,7 +100,7 @@
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnReset" layoutX="290.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnResetOnAction" prefWidth="80.0" style="-fx-background-color: #e74c3c;" text="Reset" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Button layoutX="290.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #e74c3c;" text="Reset" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
@@ -108,7 +108,7 @@
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnDeleteCustomer" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnDeleteCustomerOnAction" prefWidth="80.0" style="-fx-background-color: #c0392b;" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #c0392b;" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
@@ -116,7 +116,7 @@
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnUpdateCustomer" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnUpdateCustomerOnAction" prefWidth="80.0" style="-fx-background-color: #3498db;" text="Update" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #3498db;" text="Update" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
@@ -124,7 +124,7 @@
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnSaveCustomer" layoutX="462.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSaveCustomerOnAction" prefWidth="80.0" style="-fx-background-color: #2ecc71;" text="Save" textFill="WHITE">
+                  <Button layoutX="462.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSaveCustomerOnAction" prefWidth="80.0" style="-fx-background-color: #2ecc71;" text="Save" textFill="WHITE">
                      <font>
                         <Font name="Calibri Bold" size="14.0" />
                      </font>
