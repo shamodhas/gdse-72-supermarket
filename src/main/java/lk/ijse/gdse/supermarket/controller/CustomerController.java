@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.supermarket.dto.CustomerDTO;
 import lk.ijse.gdse.supermarket.model.CustomerModel;
 
 import java.net.URL;
@@ -74,8 +75,16 @@ public class CustomerController implements Initializable {
         }
     }
     @FXML
-    void btnSaveCustomerOnAction(ActionEvent event) {
+    void btnSaveCustomerOnAction(ActionEvent event) throws SQLException {
+        String id = lblCustomerId.getText();
+        String name = txtName.getText();
+        String nic = txtNic.getText();
+        String email = txtEmail.getText();
+        String phone = txtPhone.getText();
 
+        CustomerDTO customerDTO = new CustomerDTO(id,name,nic,email,phone);
+
+        customerModel.saveCustomer(customerDTO);
     }
 
     @FXML
