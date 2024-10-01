@@ -14,13 +14,19 @@ package lk.ijse.gdse.supermarket.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.supermarket.model.CustomerModel;
 
-public class CustomerController {
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class CustomerController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colCustomerId;
@@ -55,6 +61,18 @@ public class CustomerController {
     @FXML
     private TextField txtPhone;
 
+    CustomerModel customerModel = new CustomerModel();
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            String nextCustomerID = customerModel.getNextCustomerID();
+            System.out.println(nextCustomerID);
+            lblCustomerId.setText(nextCustomerID);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     void btnSaveCustomerOnAction(ActionEvent event) {
 
