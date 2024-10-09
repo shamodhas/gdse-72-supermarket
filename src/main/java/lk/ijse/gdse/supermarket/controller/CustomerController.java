@@ -11,7 +11,7 @@ package lk.ijse.gdse.supermarket.controller;
  * --------------------------------------------
  **/
 
-
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +28,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
+
+    @FXML
+    public JFXTextField nameField;
 
     @FXML
     private TableColumn<?, ?> colCustomerId;

@@ -11,7 +11,6 @@ package lk.ijse.gdse.supermarket.controller;
  * --------------------------------------------
  **/
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +26,6 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     private AnchorPane content;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,8 +53,8 @@ public class MainLayoutController implements Initializable {
             AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
             content.getChildren().add(load);
         } catch (IOException e) {
+            e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
         }
     }
-
 }

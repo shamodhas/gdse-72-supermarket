@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -134,6 +136,8 @@
                   </Button>
                </children>
             </HBox>
+            <JFXButton text="Hello" />
+            <JFXTextField fx:id="nameField" labelFloat="true" promptText="Enter your name" />
             <TableView fx:id="tblCustomer" onMouseClicked="#onClickTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="colCustomerId" prefWidth="75.0" text="Customer Id" />
