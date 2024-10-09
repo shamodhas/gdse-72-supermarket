@@ -27,6 +27,7 @@ import lk.ijse.gdse.supermarket.model.CustomerModel;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -169,7 +170,22 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException {
+        String customerId = lblCustomerId.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.get() == ButtonType.YES){
+
+            boolean isDeleted = customerModel.deleteCustomer(customerId);
+
+            if (isDeleted){
+                new Alert(Alert.AlertType.INFORMATION,"Customer deleted...!").show();
+                refreshPage();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Fail to delete customer...!").show();
+            }
+        }
 
     }
 
@@ -179,8 +195,23 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException {
+        String id = lblCustomerId.getText();
+        String name = txtName.getText();
+        String nic = txtNic.getText();
+        String email = txtEmail.getText();
+        String phone = txtPhone.getText();
 
+        CustomerDTO customerDTO = new CustomerDTO(id, name, nic, email, phone);
+
+        boolean isUpdate = customerModel.updateCustomer(customerDTO);
+
+        if (isUpdate){
+            new Alert(Alert.AlertType.INFORMATION,"Customer updated...!").show();
+            refreshPage();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Fail to update customer...!").show();
+        }
     }
 
     @FXML

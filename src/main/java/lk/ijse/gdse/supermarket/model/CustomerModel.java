@@ -91,6 +91,21 @@ public class CustomerModel {
 
         return customerDTOS;
     }
+
+    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException {
+        return CrudUtil.execute(
+                "update customer set name=?,nic=?,email=?,phone=? where customer_id = ?",
+                customerDTO.getName(),
+                customerDTO.getNic(),
+                customerDTO.getEmail(),
+                customerDTO.getPhone(),
+                customerDTO.getId()
+        );
+    }
+
+    public boolean deleteCustomer(String customerId) throws SQLException {
+        return CrudUtil.execute("delete from customer where customer_id=?",customerId);
+    }
 }
 
 
