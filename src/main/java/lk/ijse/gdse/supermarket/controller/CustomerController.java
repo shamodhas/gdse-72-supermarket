@@ -31,6 +31,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class CustomerController implements Initializable {
 
@@ -96,6 +97,20 @@ public class CustomerController implements Initializable {
     private void refreshTable() throws SQLException {
         ArrayList<CustomerDTO> customerDTOS = customerModel.getAllCustomer();
         ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
+
+//        ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
+//        customerTMS.addAll(customerModel.getAllCustomer().stream().map(customerDTO->{
+//            return new CustomerTM(
+//                    customerDTO.getId(),
+//                    customerDTO.getName(),
+//                    customerDTO.getNic(),
+//                    customerDTO.getEmail(),
+//                    customerDTO.getPhone()
+//            );
+//        }).collect(Collectors.toList()));
+//        tblCustomer.setItems(customerTMS);
+
+
         for (CustomerDTO customerDTO:customerDTOS){
             CustomerTM customerTM = new CustomerTM(
                     customerDTO.getId(),
