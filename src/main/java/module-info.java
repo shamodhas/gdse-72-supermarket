@@ -5,6 +5,7 @@ module lk.ijse.gdse.supermarket {
     requires java.sql;
     requires com.jfoenix;
 
+    opens lk.ijse.gdse.supermarket.dto.tm to javafx.base;
     opens lk.ijse.gdse.supermarket.controller to javafx.fxml;
     exports lk.ijse.gdse.supermarket;
 }

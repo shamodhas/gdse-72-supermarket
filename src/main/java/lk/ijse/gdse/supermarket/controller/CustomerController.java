@@ -12,6 +12,8 @@ package lk.ijse.gdse.supermarket.controller;
  **/
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,12 +21,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
+import lk.ijse.gdse.supermarket.dto.tm.CustomerTM;
 import lk.ijse.gdse.supermarket.model.CustomerModel;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -33,25 +38,25 @@ public class CustomerController implements Initializable {
     public JFXTextField nameField;
 
     @FXML
-    private TableColumn<?, ?> colCustomerId;
+    private TableColumn<CustomerTM, String> colCustomerId;
 
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<CustomerTM, String> colEmail;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<CustomerTM, String> colName;
 
     @FXML
-    private TableColumn<?, ?> colNic;
+    private TableColumn<CustomerTM, String> colNic;
 
     @FXML
-    private TableColumn<?, ?> colPhone;
+    private TableColumn<CustomerTM, String> colPhone;
 
     @FXML
     private Label lblCustomerId;
 
     @FXML
-    private TableView<?> tblCustomer;
+    private TableView<CustomerTM> tblCustomer;
 
     @FXML
     private TextField txtEmail;
@@ -69,7 +74,17 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colNic.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+
+
         try {
+            refreshTable();
+
             String nextCustomerID = customerModel.getNextCustomerID();
             System.out.println(nextCustomerID);
             lblCustomerId.setText(nextCustomerID);
@@ -77,6 +92,23 @@ public class CustomerController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    private void refreshTable() throws SQLException {
+        ArrayList<CustomerDTO> customerDTOS = customerModel.getAllCustomer();
+        ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
+        for (CustomerDTO customerDTO:customerDTOS){
+            CustomerTM customerTM = new CustomerTM(
+                    customerDTO.getId(),
+                    customerDTO.getName(),
+                    customerDTO.getNic(),
+                    customerDTO.getEmail(),
+                    customerDTO.getPhone()
+            );
+            customerTMS.add(customerTM);
+        }
+        tblCustomer.setItems(customerTMS);
+    }
+
     @FXML
     void btnSaveCustomerOnAction(ActionEvent event) throws SQLException {
         String id = lblCustomerId.getText();
@@ -85,7 +117,7 @@ public class CustomerController implements Initializable {
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
 
-        CustomerDTO customerDTO = new CustomerDTO(id,name,nic,email,phone);
+        CustomerDTO customerDTO = new CustomerDTO(id, name, nic, email, phone);
 
         customerModel.saveCustomer(customerDTO);
     }
