@@ -1,5 +1,7 @@
 package lk.ijse.gdse.supermarket.model;
 
+import lk.ijse.gdse.supermarket.dto.CustomerDTO;
+import lk.ijse.gdse.supermarket.dto.ItemDTO;
 import lk.ijse.gdse.supermarket.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -27,5 +29,23 @@ public class ItemModel {
         }
 
         return itemIds;
+    }
+
+    public ItemDTO findByItemId(String selectedItemId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("select * from item where item_id=?"
+                ,selectedItemId
+        );
+
+        if (rst.next()){
+            ItemDTO itemDTO = new ItemDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getInt(3),
+                    rst.getDouble(4)
+            );
+
+            return itemDTO;
+        }
+        return null;
     }
 }

@@ -18,7 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
+import lk.ijse.gdse.supermarket.dto.ItemDTO;
+import lk.ijse.gdse.supermarket.dto.tm.CartTM;
 import lk.ijse.gdse.supermarket.model.CustomerModel;
 import lk.ijse.gdse.supermarket.model.ItemModel;
 import lk.ijse.gdse.supermarket.model.OrderModel;
@@ -41,19 +44,19 @@ public class OrdersController implements Initializable {
     private TableColumn<?, ?> colAction;
 
     @FXML
-    private TableColumn<?, ?> colItemId;
+    private TableColumn<CartTM, String> colItemId;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<CartTM, String> colName;
 
     @FXML
-    private TableColumn<?, ?> colPrice;
+    private TableColumn<CartTM, Double> colPrice;
 
     @FXML
-    private TableColumn<?, ?> colQuantity;
+    private TableColumn<CartTM, Integer> colQuantity;
 
     @FXML
-    private TableColumn<?, ?> colTotal;
+    private TableColumn<CartTM, Double> colTotal;
 
     @FXML
     private Label lblCustomerName;
@@ -74,21 +77,30 @@ public class OrdersController implements Initializable {
     private Label orderDate;
 
     @FXML
-    private TableView<?> tblCart;
+    private TableView<CartTM> tblCart;
 
     @FXML
     private TextField txtAddToCartQty;
 
-    private final OrderModel orderModel= new OrderModel();
+    private final OrderModel orderModel = new OrderModel();
     private final CustomerModel customerModel = new CustomerModel();
     private final ItemModel itemModel = new ItemModel();
 
+    private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        colQuantity.setCellValueFactory(new PropertyValueFactory<>("cartQuantity"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("removeBtn"));
+
         try {
             refreshPage();
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR,"Fail to load data..!").show();
+            new Alert(Alert.AlertType.ERROR, "Fail to load data..!").show();
         }
     }
 
@@ -117,7 +129,47 @@ public class OrdersController implements Initializable {
 
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
+        String selectedItem = cmbItemId.getValue();
+        String itemName = lblItemName.getText();
+        int cartQty = Integer.parseInt(txtAddToCartQty.getText());
+        double unitPrice = Double.parseDouble(lblItemPrice.getText());
+        double total = unitPrice * cartQty;
+        Button btn = new Button("Remove");
 
+        if (!cartTMS.isEmpty()){
+            for (int i=0; i<tblCart.getItems().size();i++){
+                if (colItemId.getCellData(i).equals(selectedItem)){
+//                    cartQty  = cartQty + colQuantity.getCellData(i);
+                    cartQty  += colQuantity.getCellData(i);
+                    total = unitPrice*cartQty;
+
+                    cartTMS.get(i).setCartQuantity(cartQty);
+                    cartTMS.get(i).setTotal(total);
+
+                    tblCart.refresh();
+                    return;
+                }
+            }
+        }
+
+        CartTM cartTM = new CartTM(
+                selectedItem,
+                itemName,
+                cartQty,
+                unitPrice,
+                total,
+                btn
+        );
+
+        btn.setOnAction(actionEvent -> {
+            cartTMS.remove(cartTM);
+            tblCart.refresh();
+        });
+
+        cartTMS.add(cartTM);
+        tblCart.setItems(cartTMS);
+
+        txtAddToCartQty.setText("");
     }
 
     @FXML
@@ -138,8 +190,12 @@ public class OrdersController implements Initializable {
     }
 
     @FXML
-    void cmbItemOnAction(ActionEvent event) {
-
+    void cmbItemOnAction(ActionEvent event) throws SQLException {
+        String selectedItemId = cmbItemId.getSelectionModel().getSelectedItem();
+        ItemDTO itemDTO = itemModel.findByItemId(selectedItemId);
+        lblItemName.setText(itemDTO.getName());
+        lblItemQty.setText(String.valueOf(itemDTO.getQuantity()));
+        lblItemPrice.setText(String.valueOf(itemDTO.getPrice()));
     }
 
 }
