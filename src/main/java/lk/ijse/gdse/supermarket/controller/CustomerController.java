@@ -17,10 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
@@ -71,6 +68,18 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField txtPhone;
 
+    @FXML
+    private Button btnDelete;
+
+    @FXML
+    private Button btnReset;
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
+    private Button btnUpdate;
+
     CustomerModel customerModel = new CustomerModel();
 
     @Override
@@ -81,17 +90,32 @@ public class CustomerController implements Initializable {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-
-
         try {
-            refreshTable();
-
-            String nextCustomerID = customerModel.getNextCustomerID();
-            System.out.println(nextCustomerID);
-            lblCustomerId.setText(nextCustomerID);
+            refreshPage();
+//            String nextCustomerID = customerModel.getNextCustomerID();
+//            System.out.println(nextCustomerID);
+//            lblCustomerId.setText(nextCustomerID);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void refreshPage() throws SQLException {
+        refreshTable();
+
+        String nextCustomerID = customerModel.getNextCustomerID();
+        System.out.println(nextCustomerID);
+        lblCustomerId.setText(nextCustomerID);
+
+        txtName.setText("");
+        txtNic.setText("");
+        txtEmail.setText("");
+        txtPhone.setText("");
+
+        btnSave.setDisable(false);
+
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
     }
 
     private void refreshTable() throws SQLException {
@@ -134,12 +158,46 @@ public class CustomerController implements Initializable {
 
         CustomerDTO customerDTO = new CustomerDTO(id, name, nic, email, phone);
 
-        customerModel.saveCustomer(customerDTO);
+        boolean isSaved = customerModel.saveCustomer(customerDTO);
+
+        if (isSaved){
+            new Alert(Alert.AlertType.INFORMATION,"Customer saved...!").show();
+            refreshPage();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Fail to save customer...!").show();
+        }
+    }
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnResetOnAction(ActionEvent event) throws SQLException {
+        refreshPage();
+    }
+
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+
     }
 
     @FXML
     void onClickTable(MouseEvent event) {
+        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+        if (selectedItem != null){
+            lblCustomerId.setText(selectedItem.getId());
+            txtName.setText(selectedItem.getName());
+            txtNic.setText(selectedItem.getNic());
+            txtEmail.setText(selectedItem.getEmail());
+            txtPhone.setText(selectedItem.getPhone());
 
+            btnSave.setDisable(true);
+
+            btnDelete.setDisable(false);
+            btnUpdate.setDisable(false);
+        }
     }
 
 }
