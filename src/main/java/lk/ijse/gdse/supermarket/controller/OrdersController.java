@@ -21,12 +21,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
 import lk.ijse.gdse.supermarket.dto.ItemDTO;
+import lk.ijse.gdse.supermarket.dto.OrderDTO;
+import lk.ijse.gdse.supermarket.dto.OrderDetailsDTO;
 import lk.ijse.gdse.supermarket.dto.tm.CartTM;
 import lk.ijse.gdse.supermarket.model.CustomerModel;
 import lk.ijse.gdse.supermarket.model.ItemModel;
 import lk.ijse.gdse.supermarket.model.OrderModel;
 
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -173,8 +176,45 @@ public class OrdersController implements Initializable {
     }
 
     @FXML
-    void btnPlaceOrderOnAction(ActionEvent event) {
+    void btnPlaceOrderOnAction(ActionEvent event) throws SQLException {
+        if (tblCart.getItems().isEmpty()){
+            return;
+        }
+        if (cmbCustomerId.getSelectionModel().isEmpty()){
+            return;
+        }
 
+        String orderId = lblOrderId.getText();
+        Date dateOfOrder = Date.valueOf(orderDate.getText());
+        String customerId = cmbCustomerId.getValue();
+
+        ArrayList<OrderDetailsDTO> orderDetailsDTOS=new ArrayList<>();
+        for (int i=0;i<tblCart.getItems().size();i++){
+            CartTM cartTM = tblCart.getItems().get(i);
+            OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(
+                    orderId,
+                    cartTM.getItemId(),
+                    cartTM.getCartQuantity(),
+                    cartTM.getUnitPrice()
+            );
+            orderDetailsDTOS.add(orderDetailsDTO);
+        }
+
+        OrderDTO orderDTO = new OrderDTO(
+                orderId,
+                customerId,
+                dateOfOrder,
+                orderDetailsDTOS
+        );
+
+        boolean isSaved = orderModel.saveOrder(orderDTO);
+
+        if (isSaved){
+            refreshPage();
+            new Alert(Alert.AlertType.INFORMATION,"Order saved..!").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Order fail..!").show();
+        }
     }
 
     @FXML

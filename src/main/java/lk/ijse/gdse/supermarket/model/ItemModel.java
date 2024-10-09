@@ -2,6 +2,7 @@ package lk.ijse.gdse.supermarket.model;
 
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
 import lk.ijse.gdse.supermarket.dto.ItemDTO;
+import lk.ijse.gdse.supermarket.dto.OrderDetailsDTO;
 import lk.ijse.gdse.supermarket.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -47,5 +48,13 @@ public class ItemModel {
             return itemDTO;
         }
         return null;
+    }
+
+    public boolean reduceQty(OrderDetailsDTO dto) throws SQLException {
+        return CrudUtil.execute(
+                "update item set quantity = quantity-? where item_id=?",
+                dto.getQuantity(),
+                dto.getItemId()
+        );
     }
 }
