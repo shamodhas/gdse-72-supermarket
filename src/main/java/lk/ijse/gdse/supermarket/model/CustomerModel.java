@@ -117,6 +117,25 @@ public class CustomerModel {
 
         return customerIds;
     }
+
+    public CustomerDTO findByCustomerId(String selectedCustomerId) throws SQLException {
+        ResultSet rst = CrudUtil.execute("select * from customer where customer_id=?"
+                ,selectedCustomerId
+        );
+
+        if (rst.next()){
+            CustomerDTO customerDTO = new CustomerDTO(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getString(4),
+                    rst.getString(5)
+            );
+
+            return customerDTO;
+        }
+        return null;
+    }
 }
 
 
