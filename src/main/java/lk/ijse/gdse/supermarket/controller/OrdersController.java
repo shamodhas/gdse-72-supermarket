@@ -109,6 +109,7 @@ public class OrdersController implements Initializable {
 
     private void refreshPage() throws SQLException {
         lblOrderId.setText(orderModel.getNextOrderId());
+
 //        orderDate.setText(String.valueOf(LocalDate.now()));
         orderDate.setText(LocalDate.now().toString());
 
@@ -218,8 +219,8 @@ public class OrdersController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) {
-
+    void btnResetOnAction(ActionEvent event) throws SQLException {
+        refreshPage();
     }
 
     @FXML

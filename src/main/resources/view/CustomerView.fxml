@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -12,133 +10,75 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.supermarket.controller.CustomerController">
+<AnchorPane style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.supermarket.controller.CustomerController">
    <children>
-      <VBox maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox spacing="5.0">
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="160.0" prefHeight="27.2">
+                  <HBox alignment="CENTER_LEFT" prefHeight="27.2">
                      <children>
-                        <Label prefWidth="150.0" text="Customer Id" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblCustomerId" layoutX="10.0" layoutY="15.0" maxWidth="1.7976931348623157E308" prefHeight="18.0" text="1" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
+                        <Label prefWidth="150.0" text="Customer Id" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lblCustomerId" maxWidth="1.7976931348623157E308" prefHeight="18.0" text="1" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label prefWidth="150.0" text="Name" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtName" promptText="customer" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </TextField>
+                        <Label prefWidth="150.0" text="Name" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtName" promptText="customer" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label prefWidth="150.0" text="Nic" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtNic" promptText="000000000000" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </TextField>
+                        <Label prefWidth="150.0" text="Nic" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtNic" promptText="000000000000" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="48.0">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label prefWidth="150.0" text="Email" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtEmail" promptText="customer@gmail.com" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </TextField>
+                        <Label prefWidth="150.0" text="Email" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtEmail" promptText="customer@gmail.com" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="36.0">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label prefWidth="150.0" text="Phone" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtPhone" promptText="0777777777" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </TextField>
+                        <Label prefWidth="150.0" text="Phone" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtPhone" promptText="0777777777" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER_RIGHT" spacing="30.0">
+            <HBox alignment="CENTER_RIGHT" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #7f8c8d;" text="Generate Report" textFill="WHITE" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Bold" size="14.0" />
-                     </font>
+                  <Button layoutX="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #7f8c8d;" text="Generate Report" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnReset" layoutX="290.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnResetOnAction" prefWidth="80.0" style="-fx-background-color: #e74c3c;" text="Reset" textFill="WHITE" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Bold" size="14.0" />
-                     </font>
+                  <Button fx:id="btnReset" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnResetOnAction" prefWidth="80.0" style="-fx-background-color: #e74c3c;" text="Reset" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnDelete" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefWidth="80.0" style="-fx-background-color: #c0392b;" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Bold" size="14.0" />
-                     </font>
+                  <Button fx:id="btnDelete" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefWidth="80.0" style="-fx-background-color: #c0392b;" text="Delete" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
                   <Button fx:id="btnUpdate" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefWidth="80.0" style="-fx-background-color: #3498db;" text="Update" textFill="WHITE" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Bold" size="14.0" />
-                     </font>
                      <cursor>
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="btnSave" layoutX="462.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSaveCustomerOnAction" prefWidth="80.0" style="-fx-background-color: #2ecc71;" text="Save" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Bold" size="14.0" />
-                     </font>
+                  <Button fx:id="btnSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSaveCustomerOnAction" prefWidth="80.0" style="-fx-background-color: #2ecc71;" text="Save" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>
                   </Button>
                </children>
             </HBox>
-            <JFXButton text="Hello" />
-            <JFXTextField fx:id="nameField" labelFloat="true" promptText="Enter your name" />
-            <TableView fx:id="tblCustomer" onMouseClicked="#onClickTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tblCustomer" onMouseClicked="#onClickTable" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="colCustomerId" prefWidth="75.0" text="Customer Id" />
                   <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />

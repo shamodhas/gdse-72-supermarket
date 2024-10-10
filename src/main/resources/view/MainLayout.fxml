@@ -7,46 +7,49 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.supermarket.controller.MainLayoutController">
+<AnchorPane minHeight="500.0" minWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.supermarket.controller.MainLayoutController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="200.0" spacing="50.0" style="-fx-background-color: #7367F0;">
+      <!-- Side Menu -->
+      <VBox alignment="TOP_CENTER" prefWidth="200.0" spacing="50.0" style="-fx-background-color: #7367F0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Super Market" textFill="WHITE">
+            <Label text="Super Market" textFill="WHITE" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Calibri" size="32.0" />
                </font>
             </Label>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+            <VBox maxHeight="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
                <children>
+                  <!-- Navigation Buttons -->
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#navigateToCustomerPage" style="-fx-background-color: #7367F0;" text="Customer" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri" size="18.0" />
-                     </font>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
                   </Button>
-                  <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#navigateToItemPage" style="-fx-background-color: #7367F0;" text="Item" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri" size="18.0" />
-                     </font>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#navigateToItemPage" style="-fx-background-color: #7367F0;" text="Item" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
                   </Button>
-                  <Button layoutX="10.0" layoutY="50.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#navigateToOrdersPage" style="-fx-background-color: #7367F0;" text="Orders" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri" size="18.0" />
-                     </font>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#navigateToOrdersPage" style="-fx-background-color: #7367F0;" text="Orders" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
                   </Button>
                </children>
             </VBox>
          </children>
       </VBox>
-      <AnchorPane fx:id="content" layoutX="200.0" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #000;" />
+
+      <!-- Content Area -->
+      <AnchorPane fx:id="content" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

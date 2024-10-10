@@ -33,7 +33,7 @@ public class MainLayoutController implements Initializable {
     }
 
     @FXML
-    void navigateToCustomerPage(ActionEvent event)  {
+    void navigateToCustomerPage(ActionEvent event) {
         navigateTo("/view/CustomerView.fxml");
     }
 
@@ -51,6 +51,18 @@ public class MainLayoutController implements Initializable {
         try {
             content.getChildren().clear();
             AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+//  -------- Loaded anchor edges are bound to the content anchor --------
+//      (1) Bind the loaded FXML to all edges of the content anchorPane
+            load.prefWidthProperty().bind(content.widthProperty());
+            load.prefHeightProperty().bind(content.heightProperty());
+
+//      (2) Bind the loaded FXML to all edges of the AnchorPane
+//            AnchorPane.setTopAnchor(load, 0.0);
+//            AnchorPane.setRightAnchor(load, 0.0);
+//            AnchorPane.setBottomAnchor(load, 0.0);
+//            AnchorPane.setLeftAnchor(load, 0.0);
+
             content.getChildren().add(load);
         } catch (IOException e) {
             e.printStackTrace();
