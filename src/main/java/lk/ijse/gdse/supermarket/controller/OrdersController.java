@@ -43,17 +43,19 @@ public class OrdersController implements Initializable {
     @FXML
     private ComboBox<String> cmbItemId;
     @FXML
-    private TableColumn<?, ?> colAction;
+    private TableView<CartTM> tblCart;
     @FXML
     private TableColumn<CartTM, String> colItemId;
     @FXML
     private TableColumn<CartTM, String> colName;
     @FXML
-    private TableColumn<CartTM, Double> colPrice;
-    @FXML
     private TableColumn<CartTM, Integer> colQuantity;
     @FXML
+    private TableColumn<CartTM, Double> colPrice;
+    @FXML
     private TableColumn<CartTM, Double> colTotal;
+    @FXML
+    private TableColumn<?, ?> colAction;
     @FXML
     private Label lblCustomerName;
     @FXML
@@ -66,8 +68,6 @@ public class OrdersController implements Initializable {
     private Label lblOrderId;
     @FXML
     private Label orderDate;
-    @FXML
-    private TableView<CartTM> tblCart;
     @FXML
     private TextField txtAddToCartQty;
 
