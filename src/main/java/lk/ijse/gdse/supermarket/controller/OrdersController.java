@@ -139,12 +139,12 @@ public class OrdersController implements Initializable {
         double total = unitPrice * cartQty;
         Button btn = new Button("Remove");
 
-        if (!cartTMS.isEmpty()){
-            for (int i=0; i<tblCart.getItems().size();i++){
-                if (colItemId.getCellData(i).equals(selectedItem)){
+        if (!cartTMS.isEmpty()) {
+            for (int i = 0; i < tblCart.getItems().size(); i++) {
+                if (colItemId.getCellData(i).equals(selectedItem)) {
 //                    cartQty  = cartQty + colQuantity.getCellData(i);
-                    cartQty  += colQuantity.getCellData(i);
-                    total = unitPrice*cartQty;
+                    cartQty += colQuantity.getCellData(i);
+                    total = unitPrice * cartQty;
 
                     cartTMS.get(i).setCartQuantity(cartQty);
                     cartTMS.get(i).setTotal(total);
@@ -177,10 +177,10 @@ public class OrdersController implements Initializable {
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) throws SQLException {
-        if (tblCart.getItems().isEmpty()){
+        if (tblCart.getItems().isEmpty()) {
             return;
         }
-        if (cmbCustomerId.getSelectionModel().isEmpty()){
+        if (cmbCustomerId.getSelectionModel().isEmpty()) {
             return;
         }
 
@@ -188,8 +188,8 @@ public class OrdersController implements Initializable {
         Date dateOfOrder = Date.valueOf(orderDate.getText());
         String customerId = cmbCustomerId.getValue();
 
-        ArrayList<OrderDetailsDTO> orderDetailsDTOS=new ArrayList<>();
-        for (int i=0;i<tblCart.getItems().size();i++){
+        ArrayList<OrderDetailsDTO> orderDetailsDTOS = new ArrayList<>();
+        for (int i = 0; i < tblCart.getItems().size(); i++) {
             CartTM cartTM = tblCart.getItems().get(i);
             OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(
                     orderId,
@@ -209,11 +209,11 @@ public class OrdersController implements Initializable {
 
         boolean isSaved = orderModel.saveOrder(orderDTO);
 
-        if (isSaved){
+        if (isSaved) {
             refreshPage();
-            new Alert(Alert.AlertType.INFORMATION,"Order saved..!").show();
-        }else {
-            new Alert(Alert.AlertType.ERROR,"Order fail..!").show();
+            new Alert(Alert.AlertType.INFORMATION, "Order saved..!").show();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Order fail..!").show();
         }
     }
 
@@ -226,16 +226,20 @@ public class OrdersController implements Initializable {
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
         CustomerDTO customerDTO = customerModel.findByCustomerId(selectedCustomerId);
-        lblCustomerName.setText(customerDTO.getName());
+        if (customerDTO != null) {
+            lblCustomerName.setText(customerDTO.getName());
+        }
     }
 
     @FXML
     void cmbItemOnAction(ActionEvent event) throws SQLException {
         String selectedItemId = cmbItemId.getSelectionModel().getSelectedItem();
         ItemDTO itemDTO = itemModel.findByItemId(selectedItemId);
-        lblItemName.setText(itemDTO.getName());
-        lblItemQty.setText(String.valueOf(itemDTO.getQuantity()));
-        lblItemPrice.setText(String.valueOf(itemDTO.getPrice()));
+        if (itemDTO != null) {
+            lblItemName.setText(itemDTO.getName());
+            lblItemQty.setText(String.valueOf(itemDTO.getQuantity()));
+            lblItemPrice.setText(String.valueOf(itemDTO.getPrice()));
+        }
     }
 
 }

@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.supermarket.controller.OrdersController">
    <children>
-      <VBox prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #fff;">
+      <VBox prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox spacing="10.0">
                <children>
@@ -60,7 +60,7 @@
                                     <Font name="Calibri" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cmbCustomerId" onAction="#cmbCustomerOnAction" prefWidth="150.0" promptText="C001" style="-fx-background-color: #ffffff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+                              <ComboBox fx:id="cmbCustomerId" onAction="#cmbCustomerOnAction" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT">
@@ -94,7 +94,7 @@
                                     <Font name="Calibri" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cmbItemId" onAction="#cmbItemOnAction" prefWidth="150.0" promptText="C001" style="-fx-background-color: #ffffff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+                              <ComboBox fx:id="cmbItemId" onAction="#cmbItemOnAction" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT">
