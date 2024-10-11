@@ -20,7 +20,7 @@ import lombok.*;
 @ToString
 public class ItemDTO {
     private String itemId;
-    private String name;
+    private String itemName;
     private int quantity;
     private double price;
 }

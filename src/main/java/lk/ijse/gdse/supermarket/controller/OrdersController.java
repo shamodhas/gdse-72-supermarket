@@ -85,6 +85,17 @@ public class OrdersController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+       setCellValues();
+
+        // Load data and initialize the page
+        try {
+            refreshPage();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to load data..!").show();
+        }
+    }
+
+    private void setCellValues() {
         // Set up the table columns with property values from CartTM class
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
@@ -95,13 +106,6 @@ public class OrdersController implements Initializable {
 
         // Bind the cart items observable list to the TableView
         tblCart.setItems(cartTMS);
-
-        // Load data and initialize the page
-        try {
-            refreshPage();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Fail to load data..!").show();
-        }
     }
 
     /**
@@ -119,6 +123,12 @@ public class OrdersController implements Initializable {
         // Load customer and item IDs into ComboBoxes
         loadCustomerIds();
         loadItemId();
+
+//        ComboBox on action set
+//        cmbCustomerId.setOnAction(e->{
+//            String selectedCusId = cmbCustomerId.getSelectionModel().getSelectedItem();
+//            System.out.println(selectedCusId);
+//        });
 
         // Clear selected customer, item, and their associated labels
         cmbCustomerId.getSelectionModel().clearSelection();
@@ -190,13 +200,14 @@ public class OrdersController implements Initializable {
         double total = unitPrice * cartQty;
 
         // Loop through each item in cart's observable list.
-        for (CartTM cartItem : cartTMS) {
+        for (CartTM cartTM : cartTMS) {
 
             // Check if the item is already in the cart
-            if (cartItem.getItemId().equals(selectedItemId)) {
+            if (cartTM.getItemId().equals(selectedItemId)) {
                 // Update the existing CartTM object in the cart's observable list with the new quantity and total.
-                cartItem.setCartQuantity(cartItem.getCartQuantity() + cartQty); // Add the new quantity to the existing quantity in the cart.
-                cartItem.setTotal(unitPrice * cartQty); // Recalculate the total price based on the updated quantity
+                int newQty = cartTM.getCartQuantity() + cartQty;
+                cartTM.setCartQuantity(newQty); // Add the new quantity to the existing quantity in the cart.
+                cartTM.setTotal(unitPrice * newQty); // Recalculate the total price based on the updated quantity
 
                 // Refresh the table to display the updated information.
                 tblCart.refresh();
@@ -256,7 +267,7 @@ public class OrdersController implements Initializable {
         ArrayList<OrderDetailsDTO> orderDetailsDTOS = new ArrayList<>();
 
         // Collect data for each item in the cart and add to order details array
-        for (CartTM cartTM : tblCart.getItems()) {
+        for (CartTM cartTM : cartTMS) {
 
             // Create order details for each cart item
             OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(
@@ -305,7 +316,7 @@ public class OrdersController implements Initializable {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String selectedCustomerId = cmbCustomerId.getSelectionModel().getSelectedItem();
-        CustomerDTO customerDTO = customerModel.findByCustomerId(selectedCustomerId);
+        CustomerDTO customerDTO = customerModel.findById(selectedCustomerId);
 
         // If customer found (customerDTO not null)
         if (customerDTO != null) {
@@ -322,13 +333,13 @@ public class OrdersController implements Initializable {
     @FXML
     void cmbItemOnAction(ActionEvent event) throws SQLException {
         String selectedItemId = cmbItemId.getSelectionModel().getSelectedItem();
-        ItemDTO itemDTO = itemModel.findByItemId(selectedItemId);
+        ItemDTO itemDTO = itemModel.findById(selectedItemId);
 
         // If item found (itemDTO not null)
         if (itemDTO != null) {
 
             // FIll item related labels
-            lblItemName.setText(itemDTO.getName());
+            lblItemName.setText(itemDTO.getItemName());
             lblItemQty.setText(String.valueOf(itemDTO.getQuantity()));
             lblItemPrice.setText(String.valueOf(itemDTO.getPrice()));
         }

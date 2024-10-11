@@ -104,7 +104,7 @@ public class CustomerController implements Initializable {
     private void refreshPage() throws SQLException {
         refreshTable();
 
-        String nextCustomerID = customerModel.getNextCustomerID();
+        String nextCustomerID = customerModel.getNextCustomerId();
         System.out.println(nextCustomerID);
         lblCustomerId.setText(nextCustomerID);
 
@@ -120,7 +120,7 @@ public class CustomerController implements Initializable {
     }
 
     private void refreshTable() throws SQLException {
-        ArrayList<CustomerDTO> customerDTOS = customerModel.getAllCustomer();
+        ArrayList<CustomerDTO> customerDTOS = customerModel.getAllCustomers();
         ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
 
 //        ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();

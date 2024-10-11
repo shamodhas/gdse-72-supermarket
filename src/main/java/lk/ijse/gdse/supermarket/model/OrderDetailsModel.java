@@ -18,29 +18,53 @@ import java.util.ArrayList;
  **/
 
 public class OrderDetailsModel {
-    private ItemModel itemModel = new ItemModel();
-    public boolean saveOrderDetails(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException {
-        for (OrderDetailsDTO dto:orderDetailsDTOS){
-           boolean isODSaved =  saveOrderDetail(dto);
-           if (!isODSaved){
-               return false;
-           }
 
-           boolean isUpdated = itemModel.reduceQty(dto);
-            if (!isUpdated){
+    // @itemModel: Reference to the ItemModel, used to update the item quantity after saving order details
+    private final ItemModel itemModel = new ItemModel();
+
+    /**
+     * @param orderDetailsDTOS: A list of OrderDetailsDTO objects representing the order details to be saved.
+     * @return boolean: Returns true if all order details are saved and item quantities are updated, otherwise false.
+     * @throws SQLException: If any SQL-related issues occur during the save or update process.
+     * @saveOrderDetailsList: Saves a list of order details and updates item quantities accordingly.
+     * This method iterates through the list of OrderDetailsDTO objects, saves each order detail,
+     * and reduces the item quantity in the stock for each item.
+     **/
+    public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException {
+        // Iterate through each order detail in the list
+        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
+            // @isOrderDetailsSaved: Saves the individual order detail
+            boolean isOrderDetailsSaved = saveOrderDetail(orderDetailsDTO);
+            if (!isOrderDetailsSaved) {
+                // Return false if saving any order detail fails
+                return false;
+            }
+
+            // @isItemUpdated: Updates the item quantity in the stock for the corresponding order detail
+            boolean isItemUpdated = itemModel.reduceQty(orderDetailsDTO);
+            if (!isItemUpdated) {
+                // Return false if updating the item quantity fails
                 return false;
             }
         }
+        // Return true if all order details are saved and item quantities updated successfully
         return true;
     }
 
-    private boolean saveOrderDetail(OrderDetailsDTO dto) throws SQLException {
-       return CrudUtil.execute(
+    /**
+     * @param orderDetailsDTO: The OrderDetailsDTO object containing the details of the order to be saved.
+     * @return boolean: Returns true if the order detail is saved successfully, otherwise false.
+     * @throws SQLException: If any SQL-related issues occur during the execution of the query.
+     * @saveOrderDetail: Saves an individual order detail in the orderdetails table in the database.
+     **/
+    private boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException {
+        // Executes an insert query to save the order detail into the database
+        return CrudUtil.execute(
                 "insert into orderdetails values (?,?,?,?)",
-                dto.getOrderId(),
-                dto.getItemId(),
-                dto.getQuantity(),
-                dto.getPrice()
+                orderDetailsDTO.getOrderId(),
+                orderDetailsDTO.getItemId(),
+                orderDetailsDTO.getQuantity(),
+                orderDetailsDTO.getPrice()
         );
     }
 }
