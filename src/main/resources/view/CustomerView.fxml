@@ -79,6 +79,7 @@
                </children>
             </HBox>
             <Button mnemonicParsing="false" onAction="#genarateAllCustomerReportOnAction" text="All Customer Report" />
+            <Button mnemonicParsing="false" onAction="#openSendModel" text="Send mail to customer" />
             <TableView fx:id="tblCustomer" onMouseClicked="#onClickTable" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="colCustomerId" prefWidth="75.0" text="Customer Id" />

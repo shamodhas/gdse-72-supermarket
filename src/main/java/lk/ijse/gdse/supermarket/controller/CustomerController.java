@@ -16,10 +16,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import lk.ijse.gdse.supermarket.db.DBConnection;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
 import lk.ijse.gdse.supermarket.dto.tm.CustomerTM;
@@ -28,6 +33,7 @@ import lk.ijse.gdse.supermarket.model.CustomerModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -387,5 +393,28 @@ public class CustomerController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void openSendModel(ActionEvent actionEvent) throws IOException {
+        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+        if (selectedItem==null){
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SendMailView.fxml"));
+        Parent load = loader.load();
+
+        SendMailController controller = loader.getController();
+        controller.setCustomerEmail(selectedItem.getEmail());
+
+        Stage stage = new Stage();
+        stage.setTitle("Send email");
+        stage.setScene(new Scene(load));
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.initOwner(btnUpdate.getScene().getWindow());
+
+        stage.showAndWait();
     }
 }
