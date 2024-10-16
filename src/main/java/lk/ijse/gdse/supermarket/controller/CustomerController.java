@@ -20,15 +20,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.gdse.supermarket.db.DBConnection;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
 import lk.ijse.gdse.supermarket.dto.tm.CustomerTM;
 import lk.ijse.gdse.supermarket.model.CustomerModel;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -302,4 +306,38 @@ public class CustomerController implements Initializable {
         }
     }
 
+    public void genarateAllCustomerReportOnAction(ActionEvent actionEvent) {
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/report/Blank_A4_4.jrxml"));
+
+            Connection connection = DBConnection.getInstance().getConnection();
+
+//            Map<String, Object> parameters = new HashMap<>();
+//            // today - 2024-02-02
+            // TODAY -
+//            parameters.put("today",LocalDate.now().toString());
+            // <key , value>
+            Map<String, Object> parameters = new HashMap<>();
+
+            parameters.put("today",LocalDate.now().toString());
+            parameters.put("TODAY",LocalDate.now().toString());
+
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint,false);
+
+//            connection.close();
+
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

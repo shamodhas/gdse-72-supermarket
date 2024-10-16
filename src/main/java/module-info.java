@@ -4,6 +4,7 @@ module lk.ijse.gdse.supermarket {
     requires lombok;
     requires java.sql;
     requires com.jfoenix;
+    requires net.sf.jasperreports.core;
 
     opens lk.ijse.gdse.supermarket.dto.tm to javafx.base;
     opens lk.ijse.gdse.supermarket.controller to javafx.fxml;
