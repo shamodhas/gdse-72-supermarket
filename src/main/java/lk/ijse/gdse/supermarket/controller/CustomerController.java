@@ -347,6 +347,22 @@ public class CustomerController implements Initializable {
     public void btnGenerateReportOnAction(ActionEvent actionEvent) {
         String selectedCustomerId = lblCustomerId.getText();
 
+//        select c.name,
+//                c.email,
+//                c.phone,
+//                o.order_id,
+//                o.order_date,
+//                i.item_id,
+//                i.name as item_name,
+//        od.quantity,
+//                od.price,
+//                (od.quantity * od.price) as total
+//        from customer c
+//        join orders o on c.customer_id = o.customer_id
+//        join orderdetails od on o.order_id = od.order_id
+//        join item i on od.item_id = i.item_id
+//        where c.customer_id = 'C004'
+
         try {
             JasperReport jasperReport = JasperCompileManager.compileReport(
                     getClass().getResourceAsStream("/report/customer_order_report.jrxml"));
