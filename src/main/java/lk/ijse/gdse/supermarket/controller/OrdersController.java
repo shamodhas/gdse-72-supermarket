@@ -183,6 +183,18 @@ public class OrdersController implements Initializable {
             return; // Exit the method if no item is selected.
         }
 
+        String quantityPattern = "^[0-9]+$";
+//        String pricePattern = "^(\\d+)||((\\d+\\.)(\\d){2})$";
+//        right :- 500.00. 500.65, 500,
+//        wrong :- 787.8, 6777.9999
+
+        boolean isValidQty = txtAddToCartQty.getText().matches(quantityPattern);
+
+        if (!isValidQty){
+            new Alert(Alert.AlertType.ERROR,"Invalid qty").show();
+            return;
+        }
+
         String itemName = lblItemName.getText();
         int cartQty = Integer.parseInt(txtAddToCartQty.getText());
         int qtyOnHand = Integer.parseInt(lblItemQty.getText());
