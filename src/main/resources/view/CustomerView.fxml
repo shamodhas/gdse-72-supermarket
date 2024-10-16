@@ -51,7 +51,7 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT" spacing="30.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button layoutX="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #7f8c8d;" text="Generate Report" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Button fx:id="btnGenerateReport" layoutX="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnGenerateReportOnAction" style="-fx-background-color: #7f8c8d;" text="Generate Report" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="CLOSED_HAND" />
                      </cursor>

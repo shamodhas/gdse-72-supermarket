@@ -33,13 +33,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class CustomerController implements Initializable {
 
     @FXML
     public JFXTextField nameField;
+
+    @FXML
+    public Button btnGenerateReport;
 
     @FXML
     private TableColumn<CustomerTM, String> colCustomerId;
@@ -121,6 +122,7 @@ public class CustomerController implements Initializable {
 
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
+        btnGenerateReport.setDisable(true);
     }
 
     private void refreshTable() throws SQLException {
@@ -303,6 +305,7 @@ public class CustomerController implements Initializable {
 
             btnDelete.setDisable(false);
             btnUpdate.setDisable(false);
+            btnGenerateReport.setDisable(false);
         }
     }
 
@@ -323,6 +326,35 @@ public class CustomerController implements Initializable {
             parameters.put("today",LocalDate.now().toString());
             parameters.put("TODAY",LocalDate.now().toString());
 
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(
+                    jasperReport,
+                    parameters,
+                    connection
+            );
+
+            JasperViewer.viewReport(jasperPrint,false);
+
+//            connection.close();
+
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void btnGenerateReportOnAction(ActionEvent actionEvent) {
+        String selectedCustomerId = lblCustomerId.getText();
+
+        try {
+            JasperReport jasperReport = JasperCompileManager.compileReport(
+                    getClass().getResourceAsStream("/report/customer_order_report.jrxml"));
+
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("P_Customer_Id",selectedCustomerId);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport,
