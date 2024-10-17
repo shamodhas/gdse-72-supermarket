@@ -54,6 +54,8 @@ public class SendMailController {
         // you can use forget password for this
         // UUID - generate random unique id
 
+        /* Use only one method for sending emails ((1) or (2)) */
+
         // (1) Gmail with app password
         // Call the method to send an email via Gmail
         // Using your gmail account
