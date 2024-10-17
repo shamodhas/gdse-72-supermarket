@@ -17,25 +17,24 @@ import java.sql.SQLException;
  * --------------------------------------------
  **/
 
-@Getter
 public class DBConnection {
-    private static DBConnection dbConnection;
+    private static DBConnection instance;
+
+    @Getter
     private final Connection connection;
-    private final String URL ="jdbc:mysql://localhost:3306/Supermarketfx";
-    private final String USER ="root";
-    private final String PASSWORD ="1234";
 
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection(URL,USER,PASSWORD);
+        String URL = "jdbc:mysql://localhost:3306/Supermarketfx";
+        String USER = "root";
+        String PASSWORD = "1234";
+        connection = DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
     public static DBConnection getInstance() throws SQLException {
-        if (dbConnection==null){
-            dbConnection=new DBConnection();
-        }
-        return dbConnection;
+        return instance == null ? instance = new DBConnection() : instance;
     }
 
+    // Lombok usage
 //    public Connection getConnection(){
 //        return connection;
 //    }

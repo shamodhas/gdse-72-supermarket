@@ -49,6 +49,9 @@ public class CustomerController implements Initializable {
     public Button btnGenerateReport;
 
     @FXML
+    public Button btnOpenMailSendModel;
+
+    @FXML
     private TableColumn<CustomerTM, String> colCustomerId;
 
     @FXML
@@ -129,6 +132,7 @@ public class CustomerController implements Initializable {
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
         btnGenerateReport.setDisable(true);
+        btnOpenMailSendModel.setDisable(true);
     }
 
     private void refreshTable() throws SQLException {
@@ -148,7 +152,7 @@ public class CustomerController implements Initializable {
 //        tblCustomer.setItems(customerTMS);
 
 
-        for (CustomerDTO customerDTO:customerDTOS){
+        for (CustomerDTO customerDTO : customerDTOS) {
             CustomerTM customerTM = new CustomerTM(
                     customerDTO.getId(),
                     customerDTO.getName(),
@@ -169,40 +173,49 @@ public class CustomerController implements Initializable {
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
 
+        // Define regex patterns for validation
         String namePattern = "^[A-Za-z ]+$";
         String nicPattern = "^[0-9]{9}[vVxX]||[0-9]{12}$";
         String emailPattern = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         String phonePattern = "^(\\d+)||((\\d+\\.)(\\d){2})$";
 
+//        (1)
 //        Pattern compile = Pattern.compile(namePattern);
-//        System.out.println(compile.matcher(name).matches());
+//        boolean isValidName = compile.matcher(name).matches();
+
+//        (2)
+//        Validate each field using regex patterns
         boolean isValidName = name.matches(namePattern);
         boolean isValidNic = nic.matches(nicPattern);
         boolean isValidEmail = email.matches(emailPattern);
         boolean isValidPhone = phone.matches(phonePattern);
 
-        txtName.setStyle(txtName.getStyle()+";-fx-border-color: #7367F0;");
-        txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: #7367F0;");
-        txtEmail.setStyle(txtEmail.getStyle()+";-fx-border-color: #7367F0;");
-        txtPhone.setStyle(txtPhone.getStyle()+";-fx-border-color: #7367F0;");
+        // Reset input field styles
+        txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #7367F0;");
+        txtNic.setStyle(txtNic.getStyle() + ";-fx-border-color: #7367F0;");
+        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #7367F0;");
+        txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: #7367F0;");
 
-        if (!isValidName){
-            txtName.setStyle(txtName.getStyle()+";-fx-border-color: red;");
+        // Highlight invalid fields in red
+
+        if (!isValidName) {
+            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (!isValidNic){
-            txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: red;");
+        if (!isValidNic) {
+            txtNic.setStyle(txtNic.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (!isValidEmail){
-            txtEmail.setStyle(txtEmail.getStyle()+";-fx-border-color: red;");
+        if (!isValidEmail) {
+            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (!isValidPhone){
-            txtPhone.setStyle(txtPhone.getStyle()+";-fx-border-color: red;");
+        if (!isValidPhone) {
+            txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (isValidName && isValidNic && isValidEmail && isValidPhone){
+        // Save customer if all fields are valid
+        if (isValidName && isValidNic && isValidEmail && isValidPhone) {
             CustomerDTO customerDTO = new CustomerDTO(id, name, nic, email, phone);
 
             boolean isSaved = customerModel.saveCustomer(customerDTO);
@@ -222,15 +235,15 @@ public class CustomerController implements Initializable {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> buttonType = alert.showAndWait();
-        if (buttonType.get() == ButtonType.YES){
+        if (buttonType.get() == ButtonType.YES) {
 
             boolean isDeleted = customerModel.deleteCustomer(customerId);
 
-            if (isDeleted){
-                new Alert(Alert.AlertType.INFORMATION,"Customer deleted...!").show();
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer deleted...!").show();
                 refreshPage();
-            }else {
-                new Alert(Alert.AlertType.ERROR,"Fail to delete customer...!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Fail to delete customer...!").show();
             }
         }
 
@@ -261,25 +274,25 @@ public class CustomerController implements Initializable {
         boolean isValidEmail = email.matches(emailPattern);
         boolean isValidPhone = phone.matches(phonePattern);
 
-        txtName.setStyle(txtName.getStyle()+";-fx-border-color: #7367F0;");
-        txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: #7367F0;");
-        txtEmail.setStyle(txtEmail.getStyle()+";-fx-border-color: #7367F0;");
-        txtPhone.setStyle(txtPhone.getStyle()+";-fx-border-color: #7367F0;");
+        txtName.setStyle(txtName.getStyle() + ";-fx-border-color: #7367F0;");
+        txtNic.setStyle(txtNic.getStyle() + ";-fx-border-color: #7367F0;");
+        txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: #7367F0;");
+        txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: #7367F0;");
 
-        if (!isValidName){
-            txtName.setStyle(txtName.getStyle()+";-fx-border-color: red;");
+        if (!isValidName) {
+            txtName.setStyle(txtName.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (!isValidNic){
-            txtNic.setStyle(txtNic.getStyle()+";-fx-border-color: red;");
+        if (!isValidNic) {
+            txtNic.setStyle(txtNic.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (!isValidEmail){
-            txtEmail.setStyle(txtEmail.getStyle()+";-fx-border-color: red;");
+        if (!isValidEmail) {
+            txtEmail.setStyle(txtEmail.getStyle() + ";-fx-border-color: red;");
         }
 
-        if (!isValidPhone){
-            txtPhone.setStyle(txtPhone.getStyle()+";-fx-border-color: red;");
+        if (!isValidPhone) {
+            txtPhone.setStyle(txtPhone.getStyle() + ";-fx-border-color: red;");
         }
 
         if (isValidName && isValidNic && isValidEmail && isValidPhone) {
@@ -300,7 +313,7 @@ public class CustomerController implements Initializable {
     @FXML
     void onClickTable(MouseEvent event) {
         CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
-        if (selectedItem != null){
+        if (selectedItem != null) {
             lblCustomerId.setText(selectedItem.getId());
             txtName.setText(selectedItem.getName());
             txtNic.setText(selectedItem.getNic());
@@ -312,109 +325,132 @@ public class CustomerController implements Initializable {
             btnDelete.setDisable(false);
             btnUpdate.setDisable(false);
             btnGenerateReport.setDisable(false);
+            btnOpenMailSendModel.setDisable(false);
         }
     }
 
-    public void genarateAllCustomerReportOnAction(ActionEvent actionEvent) {
+    @FXML
+    public void generateAllCustomerReportOnAction(ActionEvent actionEvent) {
         try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(
-                    getClass().getResourceAsStream("/report/Blank_A4_4.jrxml"));
-
             Connection connection = DBConnection.getInstance().getConnection();
 
 //            Map<String, Object> parameters = new HashMap<>();
-//            // today - 2024-02-02
-            // TODAY -
+//            today - 2024 - 02 - 02
+//            TODAY -
+
 //            parameters.put("today",LocalDate.now().toString());
-            // <key , value>
+//            <key , value>
+//            Initialize a map to hold the report parameters
+//            These parameters can be used inside the report (like displaying today's date)
+
+            // Initialize a map to hold the report parameters
+            // These parameters can be used inside the report (like displaying today's date)
             Map<String, Object> parameters = new HashMap<>();
 
-            parameters.put("today",LocalDate.now().toString());
-            parameters.put("TODAY",LocalDate.now().toString());
+            // Put the current date into the map with two different keys ("today" and "TODAY")
+            // You can refer to these keys in the Jasper report if needed
+            parameters.put("today", LocalDate.now().toString());
+            parameters.put("TODAY", LocalDate.now().toString());
 
+            // Compile the Jasper report from a JRXML file (report template)
+            // The report template is located in the "resources/report" folder of the project
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/report/Blank_A4_4.jrxml"));
 
+            // Fill the report with the compiled report object, parameters, and a database connection
+            // This prepares the report with real data from the database
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport,
                     parameters,
                     connection
             );
 
-            JasperViewer.viewReport(jasperPrint,false);
-
-//            connection.close();
-
+            // Display the report in a viewer (this is a built-in JasperReports viewer)
+            // 'false' indicates that the window should not close the entire application when closed
+            JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Fail to load report..!");
+            e.printStackTrace();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Data empty..!");
+            e.printStackTrace();
         }
     }
 
+    @FXML
     public void btnGenerateReportOnAction(ActionEvent actionEvent) {
         String selectedCustomerId = lblCustomerId.getText();
 
-//        select c.name,
-//                c.email,
-//                c.phone,
-//                o.order_id,
-//                o.order_date,
-//                i.item_id,
-//                i.name as item_name,
-//        od.quantity,
-//                od.price,
-//                (od.quantity * od.price) as total
-//        from customer c
-//        join orders o on c.customer_id = o.customer_id
-//        join orderdetails od on o.order_id = od.order_id
-//        join item i on od.item_id = i.item_id
-//        where c.customer_id = 'C004'
+        // Example of a SQL join query used in the Jasper report (for reference):
+        // SELECT c.name, c.email, c.phone, o.order_id, o.order_date, i.item_id, i.name AS item_name,
+        //        od.quantity, od.price, (od.quantity * od.price) AS total
+        // FROM customer c
+        // JOIN orders o ON c.customer_id = o.customer_id
+        // JOIN orderdetails od ON o.order_id = od.order_id
+        // JOIN item i ON od.item_id = i.item_id
+        // WHERE c.customer_id = $P{P_Customer_Id}
 
         try {
-            JasperReport jasperReport = JasperCompileManager.compileReport(
-                    getClass().getResourceAsStream("/report/customer_order_report.jrxml"));
-
             Connection connection = DBConnection.getInstance().getConnection();
 
+            // Initialize a map to hold the report parameters
+            // This map allows passing dynamic values (like customer ID) to the report
             Map<String, Object> parameters = new HashMap<>();
-            parameters.put("P_Customer_Id",selectedCustomerId);
 
+            // Put the selected customer ID into the map with the key "P_Customer_Id"
+            // The key will be referenced in the JRXML report to filter results based on this customer
+            parameters.put("P_Customer_Id", selectedCustomerId);
+
+            // Compile the Jasper report from a JRXML file (report template)
+            // The report template is located in the "resources/report" folder of the project
+            JasperReport jasperReport = JasperCompileManager.compileReport(getClass().getResourceAsStream("/report/customer_order_report.jrxml"));
+
+            // Fill the report with the compiled report object, parameters, and a database connection
+            // This prepares the report with real data from the database based on the selected customer
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport,
                     parameters,
                     connection
             );
 
-            JasperViewer.viewReport(jasperPrint,false);
-
-//            connection.close();
-
+            // Display the report in a viewer (this is a built-in JasperReports viewer)
+            JasperViewer.viewReport(jasperPrint, false);
         } catch (JRException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Fail to load report..!");
+            e.printStackTrace();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Data empty..!");
+            e.printStackTrace();
         }
     }
 
-    public void openSendModel(ActionEvent actionEvent) throws IOException {
+    @FXML
+    public void btnOpenMailSendModelOnAction(ActionEvent actionEvent) {
         CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
-        if (selectedItem==null){
+        if (selectedItem == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select customer..!");
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SendMailView.fxml"));
-        Parent load = loader.load();
+        try {
+            // Load the mail dialog from FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SendMailView.fxml"));
+            Parent load = loader.load();
 
-        SendMailController controller = loader.getController();
-        controller.setCustomerEmail(selectedItem.getEmail());
+            SendMailController sendMailController = loader.getController();
+            sendMailController.setCustomerEmail(selectedItem.getEmail());
 
-        Stage stage = new Stage();
-        stage.setTitle("Send email");
-        stage.setScene(new Scene(load));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Send email");
 
-        stage.initModality(Modality.APPLICATION_MODAL);
+            // Set window as modal
+            stage.initModality(Modality.APPLICATION_MODAL);
 
-        stage.initOwner(btnUpdate.getScene().getWindow());
-
-        stage.showAndWait();
+            stage.initOwner(btnUpdate.getScene().getWindow());
+            stage.showAndWait();
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to load ui..!");
+            e.printStackTrace();
+        }
     }
 }
