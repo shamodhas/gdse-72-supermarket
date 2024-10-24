@@ -25,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.gdse.supermarket.db.DBConnection;
 import lk.ijse.gdse.supermarket.dto.CustomerDTO;
 import lk.ijse.gdse.supermarket.dto.tm.CustomerTM;
@@ -437,7 +438,9 @@ public class CustomerController implements Initializable {
             Parent load = loader.load();
 
             SendMailController sendMailController = loader.getController();
-            sendMailController.setCustomerEmail(selectedItem.getEmail());
+
+            String email = selectedItem.getEmail();
+            sendMailController.setCustomerEmail(email);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(load));
@@ -446,7 +449,9 @@ public class CustomerController implements Initializable {
             // Set window as modal
             stage.initModality(Modality.APPLICATION_MODAL);
 
-            stage.initOwner(btnUpdate.getScene().getWindow());
+            Window underWindow = btnUpdate.getScene().getWindow();
+            stage.initOwner(underWindow);
+
             stage.showAndWait();
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Fail to load ui..!");

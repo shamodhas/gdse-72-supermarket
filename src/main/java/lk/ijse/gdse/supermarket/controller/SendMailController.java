@@ -55,6 +55,7 @@ public class SendMailController {
         // UUID - generate random unique id
 
         /* Use only one method for sending emails ((1) or (2)) */
+//        Send Email in Java SMTP with TLS Authentication
 
         // (1) Gmail with app password
         // Call the method to send an email via Gmail
