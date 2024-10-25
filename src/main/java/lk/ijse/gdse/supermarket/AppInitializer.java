@@ -39,7 +39,7 @@ public class AppInitializer extends Application {
             Scene value = loadMainSceneTask.getValue();
 
             stage.setTitle("Supermarket FX");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app_icon.png")));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app_logo.png")));
             stage.setMaximized(true);
 
             // Switch to the main scene

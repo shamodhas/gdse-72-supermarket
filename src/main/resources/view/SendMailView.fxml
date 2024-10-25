@@ -20,7 +20,12 @@
             </Label>
             <TextField fx:id="txtSubject" prefHeight="25.0" prefWidth="485.0" promptText="subject" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" VBox.vgrow="ALWAYS" />
             <TextArea fx:id="txtBody" prefHeight="200.0" prefWidth="485.0" promptText="body" style="-fx-border-color: #7367F0;" VBox.vgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#sendOnAction" prefWidth="100.0" style="-fx-background-color: #7367F0;" text="Send" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <Button mnemonicParsing="false" onAction="#sendUsingGmailOnAction" prefWidth="150.0" style="-fx-background-color: #7367F0;" text="Send Using Gmail" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Calibri Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="449.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendUsingSendgridOnAction" prefWidth="150.0" style="-fx-background-color: #7367F0;" text="Send Using Sendgrid" textFill="WHITE">
                <font>
                   <Font name="Calibri Bold" size="14.0" />
                </font>
