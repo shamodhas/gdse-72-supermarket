@@ -36,8 +36,27 @@ public class SendMailController {
     @Setter
     private String customerEmail;
 
+    // you can use forget password for this
+    // UUID - generate random unique id
+
+    /* Use only one method for sending emails ((1) or (2)) */
+    // Send Email in Java SMTP with TLS Authentication
+
+    // (1) Gmail with app password (need Gmail 2FA)
+    // Call the method to send an email via Gmail
+    // Using your gmail account
+    // You must enable two-factor authentication
+
+    // (2) Sendgrid with api key (no need Gmail 2FA)
+    // Call the method to send an email via SendGrid
+    // You must create sendgrid account
+
     @FXML
-    void sendOnAction(ActionEvent event) {
+    public void sendUsingSendgridOnAction(ActionEvent actionEvent) {
+        if (customerEmail == null) {
+            return;
+        }
+
         // The sender's email address
         final String FROM = "replace-your-email";
 
@@ -54,14 +73,8 @@ public class SendMailController {
         // you can use forget password for this
         // UUID - generate random unique id
 
-        /* Use only one method for sending emails ((1) or (2)) */
-//        Send Email in Java SMTP with TLS Authentication
-
-        // (1) Gmail with app password
-        // Call the method to send an email via Gmail
-        // Using your gmail account
-        // You must enable two-factor authentication
-        sendEmailWithGmail(FROM, customerEmail, subject, body);
+        /* Without gmail 2fa */
+        // Send Email in Java SMTP with TLS Authentication
 
         // (2) Sendgrid with api key
         // Call the method to send an email via SendGrid
@@ -145,6 +158,40 @@ public class SendMailController {
         }
     }
 
+
+    @FXML
+    public void sendUsingGmailOnAction(ActionEvent actionEvent) {
+        if (customerEmail == null) {
+            return;
+        }
+
+        // The sender's email address
+        final String FROM = "replace-your-email";
+
+        // Get the subject and body from the text fields
+        String subject = txtSubject.getText();
+        String body = txtBody.getText();
+
+        // Check if subject or body is empty; show a warning if they are
+        if (subject.isEmpty() || body.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Subject and body must not be empty!").show();
+            return;
+        }
+
+        // you can use forget password for this
+        // UUID - generate random unique id
+
+        /* Use only one method for sending emails ((1) or (2)) */
+//        Send Email in Java SMTP with TLS Authentication
+
+        // (1) Gmail with app password (need Gmail 2FA)
+        // Call the method to send an email via Gmail
+        // Using your gmail account
+        // You must enable two-factor authentication
+        sendEmailWithGmail(FROM, customerEmail, subject, body);
+
+    }
+
     /**
      * Method to send an email using Gmail's email service.
      *
@@ -211,4 +258,3 @@ public class SendMailController {
         }
     }
 }
-
