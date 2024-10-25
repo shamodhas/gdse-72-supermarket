@@ -12,6 +12,12 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class AppInitializer extends Application {
+
+
+    public static void main(String[] args) {
+        launch(); // Launch the JavaFX application
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         // Load and display the loading view
@@ -19,7 +25,7 @@ public class AppInitializer extends Application {
         stage.show();
 
         // Create a background task to load the main scene
-        Task<Scene> loadMainSceneTask = new Task<Scene>() {
+        Task<Scene> loadMainSceneTask = new Task<>() {
             @Override
             protected Scene call() throws Exception {
                 // Load the main layout from FXML
@@ -30,16 +36,14 @@ public class AppInitializer extends Application {
 
         // What to do when loading is successful
         loadMainSceneTask.setOnSucceeded(event -> {
-            Scene mainScene = loadMainSceneTask.getValue(); // Get the loaded main scene
-            stage.setTitle("Supermarket FX"); // Set the application title
+            Scene value = loadMainSceneTask.getValue();
 
-            // Set the app icon
-            stage.getIcons().add(
-                    new Image(getClass().getResourceAsStream("/images/app_logo.png"))
-            );
+            stage.setTitle("Supermarket FX");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/app_icon.png")));
+            stage.setMaximized(true);
 
             // Switch to the main scene
-            stage.setScene(mainScene);
+            stage.setScene(value);
         });
 
         // What to do in case of loading failure (optional)
@@ -47,11 +51,7 @@ public class AppInitializer extends Application {
             System.err.println("Failed to load the main layout."); // Print error message
         });
 
-        // Start the task in a separate thread to keep UI responsive
+        // Start the task in a separate thread
         new Thread(loadMainSceneTask).start();
-    }
-
-    public static void main(String[] args) {
-        launch(); // Launch the JavaFX application
     }
 }
